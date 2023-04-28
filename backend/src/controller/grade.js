@@ -4,34 +4,33 @@ const Wilder = require("../entity/Wilder");
 const Skill = require("../entity/Skill");
 
 module.exports = {
-    read: async (req, res) => {
-      try {
-        const gradesFromDB = await dataSource.getRepository(Grade).find();
-        res.send(gradesFromDB);
-      } catch (error) {
-        console.log(error);
-        res.send("Error while reading grades");
-      }
-    },
-    create: async (req, res) => {
-      try {
-        const wilderFromDB = await dataSource
-          .getRepository(Wilder)
-          .findOneBy({ name: req.body.wilder });
-        console.log("Wilder from DB", wilderFromDB);
-        const skillFromDB = await dataSource
-          .getRepository(Skill)
-          .findOneBy({ name: req.body.skill });
-        console.log("Skill from DB", skillFromDB);
+  create : async (req, res) => {
+    try {
+        const wilderFromDb = await dataSource.getRepository(Wilder).findOneBy({name: req.body.wilder});
+        console.log("wilderFromDb", wilderFromDb);
+
+        const skillFromDb = await dataSource.getRepository(Skill).findOneBy({name: req.body.skill});
+        console.log("skillFromDb", skillFromDb);
+
         await dataSource.getRepository(Grade).save({
-          grade: req.body.grade,
-          skill: skillFromDB,
-          wilder: wilderFromDB,
-        });
-        res.send("Created Grade");
-      } catch (error) {
-        console.log(error);
-        res.send("Error while creating grade");
-      }
-    },
-  };
+            grade : req.body.grade,
+            wilder : wilderFromDb,
+            skill : skillFromDb
+            });
+        res.send("Grade created");
+    } catch (error) {
+        res.send("Failed to create Grade");
+        console.error(error);
+    }
+},
+
+read : async (req, res) => {
+    try {
+        const grades = await dataSource.getRepository(Grade).find();
+        res.send(grades);
+    } catch (error) {
+        res.send("Failed to retrieve Grades");
+    }
+}
+
+};

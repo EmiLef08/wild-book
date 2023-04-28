@@ -8,7 +8,7 @@ const gradeController = require("./controller/grade");
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3100" }));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -16,13 +16,15 @@ app.get("/", (req, res) => {
 
 app.post("/api/wilder", wilderController.create);
 app.get("/api/wilder", wilderController.read);
-app.delete("/api/wilder", wilderController.delete);
-app.put("/api/wilder", wilderController.update);
+app.delete("/api/wilder/:id", wilderController.delete);
+app.put("/api/wilder/:id", wilderController.update);
 
 app.post("/api/skill", skillController.create);
 app.get("/api/skill", skillController.read);
-app.delete("/api/skill", skillController.delete);
-app.put("/api/skill", skillController.update);
+app.delete("/api/skill/:id", skillController.delete);
+app.put("/api/skill/:id", skillController.update);
+
+app.put("/api/addskill", wildercontroller.addSkill);
 
 app.post("/api/grade", gradeController.create);
 app.get("/api/grade", gradeController.read);

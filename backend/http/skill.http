@@ -10,7 +10,7 @@ GET http://localhost:8000/api/skill
 
 ###
 
-PUT http://localhost:8000/api/skill
+PUT http://localhost:8000/api/skill/2
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/skill
+DELETE http://localhost:8000/api/skill/1
 Content-Type: application/json
 
 {

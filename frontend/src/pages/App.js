@@ -3,48 +3,70 @@ import styles from './App.module.css';
 import Wilder from '../components/Wilder';
 import axios from 'axios';
 import AddWilder from '../components/AddWilder';
+import PropTypes from '../propTypes';
 
 function App() {
-  const [wilders, setWilders] = useState([]);
-
+  const [wildersData, setWildersData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const wilders = await axios.get("http://localhost:8000/api/wilder");
-      console.log(wilders.data);
-      setWilders(wilders.data);
+      const result = await axios.get('http://localhost:8000/api/wilder');
+      console.log(result);
+      setWildersData(result.data);
     };
-
     fetchData();
   }, []);
-
   return (
     <div>
-    <header>
-      <div className={styles.container}>
-        <h1>Wilders Book</h1>
-      </div>
-    </header>
-    <main className={styles.container}>
-      <AddWilder />
-      <h2>Wilders</h2>
-      <section className={styles["card-row"]}>
-        {wilders.map((wilder) => (
-          <Wilder
-            key={wilder.id}
-            name={wilder.name}
-            city={wilder.city}
-            skills={wilder.skills}
-          />
-        ))}
-      </section>
-    </main>
-    <footer>
-      <div className={styles.container}>
-        <p>&copy; 2022 Wild Code School</p>
-      </div>
-    </footer>
-  </div>
+      <header>
+        <div className="container">
+          <h1>Wilders Book</h1>
+        </div>
+      </header>
+      <main className={styles.container}>
+        <div className={styles.addNew}>
+          <AddWilder setWildersData={setWildersData} />
+        </div>
+        <h2>Wilders</h2>
+        <section className={styles['card-row']}>
+          {wildersData.map((wilder) => {
+            return (
+              <Wilder
+                key={wilder.id}
+                name={wilder.name}
+                skills={wilder.skills}
+                id={wilder.id}
+                city={wilder.city}
+                setWildersData={setWildersData}
+              />
+            );
+          })}
+        </section>
+      </main>
+      <footer>
+        <div className="container">
+          <p></p>
+        </div>
+      </footer>
+    </div>
   );
 }
+
+App.propTypes = {
+  wildersData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      city: PropTypes.string,
+      skills: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          title: PropTypes.string.isRequired,
+          votes: PropTypes.number.isRequired,
+        })
+      ),
+    })
+  ),
+  setWildersData: PropTypes.func.isRequired,
+};
 
 export default App;
