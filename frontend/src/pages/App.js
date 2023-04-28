@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import Wilder from '../components/Wilder';
 import axios from 'axios';
 import AddWilder from '../components/AddWilder';
-import PropTypes from '../propTypes';
+import PropTypes from "prop-types";
 
 function App() {
   const [wildersData, setWildersData] = useState([]);
@@ -27,7 +27,7 @@ function App() {
           <AddWilder setWildersData={setWildersData} />
         </div>
         <h2>Wilders</h2>
-        <section className={styles['card-row']}>
+        <section className={styles["card-row"]}>
           {wildersData.map((wilder) => {
             return (
               <Wilder

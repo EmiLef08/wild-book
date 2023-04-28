@@ -14,7 +14,7 @@ const Wilder = ({ name, skills, id, city, setWildersData}) => {
   };
     return (
       <article className={styles.card}>
-        <img src={blank_profile} alt="Wilder Profile" className={styles.cardImg} />
+        <img src={blank_profile} alt="Wilder Profile" />
         <h3>{name}</h3>
         {city ? <h4>{city}</h4> : null}
         <button className={styles.button} onClick={() => handleDeleteWilder(id)}>Delete</button>
@@ -24,11 +24,11 @@ const Wilder = ({ name, skills, id, city, setWildersData}) => {
           veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
           commodo consequat.
         </p>
-        <h4>Wild Skills</h4>
+        <h4>Wilder Skills</h4>
         <ul>
-          {skills?.map((skill) => (
-            <Skill name={skill.title} votes={skill.votes} key={skill.id} />
-          ))}
+          {skills?.map((skill) => {
+          console.log(skill, "Skill");
+            return (<Skill title={skill.title} vote={skill.votes} key={skill.id} />)})}
         </ul>
       </article>
     );
@@ -40,7 +40,7 @@ const Wilder = ({ name, skills, id, city, setWildersData}) => {
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        votes: PropTypes.number.isRequired,
+        vote: PropTypes.number.isRequired,
       })
     ).isRequired,
     id: PropTypes.number.isRequired,

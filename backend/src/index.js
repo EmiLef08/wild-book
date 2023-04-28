@@ -24,7 +24,7 @@ app.get("/api/skill", skillController.read);
 app.delete("/api/skill/:id", skillController.delete);
 app.put("/api/skill/:id", skillController.update);
 
-app.put("/api/addskill", wildercontroller.addSkill);
+app.put("/api/addskill", wilderController.addSkill);
 
 app.post("/api/grade", gradeController.create);
 app.get("/api/grade", gradeController.read);
