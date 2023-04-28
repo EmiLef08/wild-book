@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const AddWilders = () => {
     const [name, setName] = useState("");
@@ -9,7 +10,7 @@ const AddWilders = () => {
         <form
         onSubmit={(e) => {
             e.preventDefault();
-            axios.post("http://localhost:3000/api/wilder", { name, city });
+            axios.post("http://localhost:8000/api/wilder", { name, city });
         }}  >
             <label>Name :</label>
             <input type="text" value={name} onChange={(e) => {setName(e.target.value);}} />
@@ -21,6 +22,10 @@ const AddWilders = () => {
             <button>Add Wilder</button>
         </form>
     );
+};
+
+AddWilders.propTypes = {
+    refresh: PropTypes.func.isRequired,
 };
 
 export default AddWilders;

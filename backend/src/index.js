@@ -8,7 +8,7 @@ const gradeController = require("./controller/grade");
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:3100" }));
 
 app.get("/", (req, res) => {
   res.send("Hello World");
